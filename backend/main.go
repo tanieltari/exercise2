@@ -35,7 +35,7 @@ func main() {
 	http.HandleFunc("GET /stops", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query().Get("q")
 		query = strings.ToLower(strings.TrimSpace(query))
-		var matches []string
+		matches := make([]string, len(stops))
 		for _, stop := range stops {
 			if strings.Contains(strings.ToLower(stop), query) {
 				matches = append(matches, stop)
@@ -50,7 +50,7 @@ func main() {
 
 	// Exercise number 2 🚀
 	http.HandleFunc("GET /realtime", func(w http.ResponseWriter, r *http.Request) {
-		var vehicles []Vehicle
+		vehicles := make([]Vehicle, 7)
 		for i := 0; i < 5; i++ {
 			vehicles = append(vehicles, Vehicle{
 				Latitude:  randomFloat(1, 10),
